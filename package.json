@@ -1,0 +1,21 @@
+{
+  "name": "NodeExploring",
+  "version": "0.0.1",
+  "description": "Node.js learning and exploring.",
+  "main": "",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renlanchuke/NodeExploring.git"
+  },
+  "keywords": [
+    "Node.js",
+    "learning & exploring"
+  ],
+  "author": "Hbing Duan",
+  "license": "WTFPL",
+  "homepage": "https://github.com/renlanchuke/NodeExploring#readme"
+}
