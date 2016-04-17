@@ -8,8 +8,11 @@ var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 require('mongoose-currency').loadType(mongoose);
 
+//currency类型 https://www.npmjs.com/package/mongoose-currency
+//输出可以控制精度，如按两位小数输出 *.price.toFixed(2)	
 var Currency=mongoose.Types.Currency;
 
+//设置数据类型等信息，可以进行数据校验
 var weapenSchema=new Schema({
 	name:{
 		type:String,
@@ -17,8 +20,7 @@ var weapenSchema=new Schema({
 	},
 	label:{
 		type:String,
-		required:true,
-		default:""
+		required:true
 	},
 	price:{
 		type:Currency,
@@ -28,6 +30,8 @@ var weapenSchema=new Schema({
 		type:String,
 		default:""
 	}
+},{
+	timestamps:true
 });
 
 var heroSchema= new Schema({
@@ -48,7 +52,11 @@ var heroSchema= new Schema({
 		type:String,
 		default:""
 	},
-	weapen:[weapenSchema]
+	//在一个Schema中嵌入另一个Schema,
+	weapen:weapenSchema
+},{
+	//设置时间戳
+	timestamps:true
 });
-var Hero=mongoose.model('model',heroSchema);
-module.exports=Hero;
+var Heros=mongoose.model('heros',heroSchema);
+module.exports=Heros;
