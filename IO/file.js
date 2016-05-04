@@ -1,4 +1,6 @@
+//path包含处理路径的方法
 var path = require('path');
+//fs模块包含所有文件操作函数
 var fs = require('fs');
 
 var str1 = "/home";
@@ -38,5 +40,95 @@ var fileName = path.basename(str8, extName);
 console.log(fileName);
 
 //获取系统路径的分隔符unix:'/', windows:'\\'
-var sep=path.sep;
+var sep = path.sep;
 console.log(sep);
+
+/************
+ * 获取或目录信息
+ * fs.stat() 返回一个stats对象
+ * 
+ * atime "Access Time"
+ * mtime "Modified Time"
+ * ctime "Change Time"
+ * birthtime "Birth Time" 
+ * *************/
+fs.stat('./test', function (err, stats) {
+    if (err) throw err;
+    // console.log(stats);
+});
+
+//读取整个文件
+fs.readFile('./test', 'UTF-8', function (err, data) {
+    if (err) throw err;
+    console.log( "read whole file: "+data);
+});
+
+/***************
+ * fs.write(fd, buffer, offset, length[, position], callback)
+ * fd 文件指针
+ * buffer 写入数据的缓存
+ * offset 缓存写入时开始的地方
+ * position 写入文件开始的地方，null表示从当前位置读取
+ * callback 三个参数 (err, written, buffer)
+ * written 写入的字节数
+ * ***********************/
+fs.open('./test', 'a', (err, fd) => {
+    var buffer = new Buffer("Writing to this file"),
+        offset = 0,
+        length = buffer.length,
+        position = null;
+
+    fs.write(fd,
+        buffer,
+        offset,
+        length,
+        position,
+        (err, writen) => {
+            if (err) throw err;
+            console.log('write file successfully');
+            console.log("write " + writen + " bytes");
+            fs.close(fd,(err)=>{
+                if(err) throw err;
+            });
+        });
+});
+
+
+/***************
+ * fs.read(fd, buffer, offset, length, position, callback)
+ * buffer 写入数据的缓存
+ * offset 缓存写入时开始的地方
+ * length 读取的字节数
+ * position 读取文件开始的地方，null表示从当前位置读取
+ * callback 三个参数 (err, bytesRead, buffer)
+ * ********************/
+fs.open('./test', 'r', (err, fd) => {
+    if (err) throw err;
+    var readBuffer = new Buffer(1024),
+        bufferOffset = 0,
+        bufferLength = readBuffer.length,
+        filePosition = 0;
+    fs.read(fd,
+        readBuffer,
+        bufferOffset,
+        bufferLength,
+        filePosition,
+        (err, readBytes, buffer) => {
+            if (err) throw err;
+            console.log('read ' + readBytes + ' bytes');
+            if (readBytes > 0) {
+                //切分缓冲区，取出读入的数据部分
+                console.log(buffer.slice(0, readBytes));
+                console.log("read file from buffer: "+buffer.slice(0, readBytes).toString());
+            }
+            //关闭文件
+            fs.close(fd,(err)=>{
+                if(err) throw err;
+            });
+
+        });                                                                                                                                         
+});
+
+
+
+
