@@ -17,7 +17,7 @@ exec("ls", (err, stdout, stderr) => {
 
 //在父进程环境变量中加入一个新的变量，作为子进程的环境变量
 var env = process.env;
-env['number'] = "123";
+env['number'] = 111; //加入一个整型变量，子进程读取为String类型
 //exec设置可选的参数
 var options = {
     timeout: 10000,  //超时
