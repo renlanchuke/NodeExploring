@@ -12,21 +12,39 @@ child.stdout.on('data', function (data) {
 
 //终止进程
 setTimeout(() => {
+    //默认发送SIGTERM
     child.kill();
 }, 1000);
 
-
-//回复标准输入流
-process.stdin.resume();
-//输入一个数字，加1再输出
-process.stdin.on('data', (data) => {
-    var number;
-    try {
-        number = parseInt(data.toString(), 10);
-        number++;
-        process.stdout.write(number + "\n");
-    } catch (err) {
-        process.stdout.write(err.message + "\n");
+//监听子进程退出事件
+child.on('exit', (code, signal) => {
+    if (code) {
+        //正常退出会有一个退出码，0为正常退出，非0一般表示错误
+        console.log('child process terminated with code ' + code);
+    } else {
+        //非正常退出，输出退出信号
+        console.log('child process terminated with signal ' + signal);
     }
-
 });
+
+//创建子进程2
+var child2 = spawn('node', ['add1']);
+
+//产生一个随机数
+var number = Math.ceil(Math.random() * 1000);
+
+//向子进程输入一个数字
+child2.stdin.write(number + "\n");
+//获取子进程的标准输出
+child2.stdout.once('data', (data) => {
+    console.log('child2 get number ' + number + ' replies with ' + data);
+});
+
+child.stderr.on('data', (data) => {
+    process.stdout.write(data);
+});
+
+setTimeout(() => {
+    //可以发送一个信号终止进程
+    child2.kill('SIGINT');
+}, 5000);
