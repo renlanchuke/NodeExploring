@@ -38,3 +38,18 @@ http.createServer((req, res) => {
     });
 }).listen(3000);
 
+
+/*******************
+ * 可用pipe集成上面的功能
+http.createServer((req, res) => {
+    var rs = fs.createReadStream('./test');
+    
+    //{end:false}避免rs结束时在可写流调用
+    rs.pipe(res,{end:false});
+    
+    rs.on('end',function () {
+        res.write("ALl is over");
+        res.end();
+    });
+}).listen(3000);
+******************** */
