@@ -41,6 +41,12 @@ http.createServer((req, res) => {
 
 /*******************
  * 可用pipe集成上面的功能
+ * readable.pipe(destination[, options])
+    destination <stream.Writable> The destination for writing data
+    options <Object> Pipe options
+        end <Boolean> End the writer when the reader ends. Default = true
+
+
 http.createServer((req, res) => {
     var rs = fs.createReadStream('./test');
     
