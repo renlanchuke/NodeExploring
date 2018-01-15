@@ -1,14 +1,11 @@
 {
-  "name": "node-exploring",
+  "name": "node-exploring-proxy",
   "version": "0.0.1",
   "description": "Node.js learning and exploring.",
   "main": "",
   "dependencies": {
-    "assert": "^1.3.0",
-    "mongodb": "^2.1.11",
-    "mongoose": "^4.4.11",
-    "mongoose-currency": "^0.2.0",
-    "prompt": "^1.0.0"
+    "bluebird": "^3.5.1",
+    "streamz": "^1.8.5"
   },
   "devDependencies": {},
   "repository": {
