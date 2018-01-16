@@ -56,7 +56,7 @@ net.createServer(function (source_socket) {
 
 
     pass1.pipe(process.stdout);
-    pass2.pipe(local_dest_socket);
+    pass2.pipe(process.stdout);
 
 
 

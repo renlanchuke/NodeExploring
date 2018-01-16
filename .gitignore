@@ -6,3 +6,5 @@ node_modules
 .settings/
 .git
 .project
+
+TCPProxy/node_modules

@@ -1,0 +1,15 @@
+{
+  "name": "elasticsearch",
+  "version": "0.2.0",
+  "description": "elasticsearch node,js test",
+  "main": "index.js",
+  "dependencies": {},
+  "scripts": {
+    "test": "debug"
+  },
+  "keywords": [
+    "elasticsearch"
+  ],
+  "author": "renlanchuke",
+  "license": "GPL-2.0"
+}
