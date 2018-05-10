@@ -10,7 +10,7 @@ pass = require('stream').PassThrough;
 pass1 = new pass();
 pass2 = new pass();
 
-
+count = 0;
 
 var dest = config.elasticsearch_remote_destination;
 
@@ -27,7 +27,8 @@ var dest = config.elasticsearch_remote_destination;
 net.createServer(function (source_socket) {
 
     // source_socket.on("data", (data) => {
-    //     SV.saveFile(data);
+    //     process.stdout(data);
+    //     source_socket.end();
     // });
 
     var dest_socket = net.createConnection({
@@ -35,39 +36,40 @@ net.createServer(function (source_socket) {
         port: dest[0].port
     });
 
-    dest_socket.on("error", function (err) {
-        console.log(err);
-        dest_socket = net.createConnection({
-            host: dest[1].ip,
-            port: dest[1].port
-        });
-    })
     var local_dest_socket = net.createConnection({
         host: dest[1].ip,
         port: dest[1].port
     });
 
-    //source_socket.pipe(streamz(combineStreamOperations));
-    source_socket.pipe(pass1);
-    source_socket.pipe(pass2);
+
+    source_socket.on('end', function () {
+        console.log("source_socket end");
+    });
+
+    local_dest_socket.on('end', function () {
+        console.log('local dest socket end');
+    })
+
+    dest_socket.on('end', function () {
+        console.log('remote dest socket end');
+    })
+
+    source_socket.on('data', function (data) {
+        console.log(data.toString());
+        dest_socket.write(data);
+        local_dest_socket.write(data);
+    })
 
 
+    dest_socket.on('data', function (data) {
+        //console.log(data.toString());
+        //source_socket.write(data);
+    })
 
+    local_dest_socket.on('data', function (data) {
+        console.log(data.toString());
+        source_socket.write(data);
 
+    })
 
-    pass1.pipe(process.stdout);
-    pass2.pipe(process.stdout);
-
-
-
-    //dest_socket.pipe(process.stdout);
-    // local_dest_socket.pipe(source_socket);
-
-    // source_socket.on('data', (data) => {
-    //     local_dest_socket.write(data);
-    //     dest_socket.write(data);
-
-    // });
-    // source_socket.pipe(local_dest_socket);
-    // local_dest_socket.pipe(source_socket)
 }).listen(config.elastic_local_port);
