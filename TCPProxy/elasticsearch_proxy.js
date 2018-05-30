@@ -55,7 +55,7 @@ net.createServer(function (source_socket) {
     })
 
     source_socket.on('data', function (data) {
-        console.log(data.toString());
+        //console.log(data.toString());
         dest_socket.write(data);
         local_dest_socket.write(data);
     })
@@ -63,12 +63,12 @@ net.createServer(function (source_socket) {
 
     dest_socket.on('data', function (data) {
         //console.log(data.toString());
-        //source_socket.write(data);
+        source_socket.write(data);
     })
 
     local_dest_socket.on('data', function (data) {
-        console.log(data.toString());
-        source_socket.write(data);
+        //console.log(data.toString());
+        //source_socket.write(data);
 
     })
 
