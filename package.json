@@ -12,7 +12,12 @@
     "node-threadobject": "^1.0.2",
     "prompt": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-plugin-node-core": "^1.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/renlanchuke/NodeExploring.git"
@@ -23,5 +28,8 @@
   ],
   "author": "Hbing Duan",
   "license": "WTFPL",
-  "homepage": "https://github.com/renlanchuke/NodeExploring#readme"
+  "homepage": "https://github.com/renlanchuke/NodeExploring#readme",
+  "scripts": {
+    "lint": "eslint ."
+  }
 }

@@ -1,29 +1,28 @@
-let Promise=require('bluebird');
-let co=Promise.coroutine;
-let fs=require('fs');
-let Thread=require('node-threadobject')
+'use strict';
 
-
-let thread=new Thread();
-
-let readdirAsync=Promise.promisify(fs.readdir,fs);
-let delayBySecAsync=Promise.promisify(thread.delayBySec,thread);
+const Promise = require('bluebird');
+const co = Promise.coroutine;
+const fs = require('fs');
+const Thread = require('node-threadobject');
+const thread = new Thread();
+const readdirAsync = Promise.promisify(fs.readdir, fs);
+const delayBySecAsync = Promise.promisify(thread.delayBySec, thread);
 
 console.log('promise start');
 
-let hco=co(function* (){
-    console.log('co begin');
+const hco = co(function* () {
+  console.log('co begin');
 
-    let ret=yield readdirAsync(__dirname);
-    console.log(ret);
+  const ret = yield readdirAsync(__dirname);
+  console.log(ret);
 
-    yield delayBySecAsync(1);
+  yield delayBySecAsync(1);
 
-    console.log('co end');
-})
+  console.log('co end');
+});
 
-hco().catch(function(e){
-    console.error(e);
+hco().catch(function(e) {
+  console.error(e);
 });
 
 console.log('hco end');
