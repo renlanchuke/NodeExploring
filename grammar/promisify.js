@@ -35,13 +35,11 @@ function calOnlinePercent(onlinePerson, regPerson, callback) {
 function promisify(fn) {
   return function() {
     var args = Array.prototype.slice.call(arguments);
-    console.log('args: ', args);
     return new Promise(function(resolve) {
       args.push(function(result) {
         resolve(result);
       });
       fn.apply(null, args);
-
     });
   };
 }
