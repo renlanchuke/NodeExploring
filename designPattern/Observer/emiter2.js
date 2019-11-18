@@ -1,10 +1,11 @@
+'use strict';
 const observer = require('./observer');
 
-function listener(...args){
+function listener(...args) {
   console.log([...args].join('  ,'));
 }
 
-function listener2(params){
+function listener2(params) {
   console.log(params);
 }
 
@@ -13,9 +14,9 @@ observer.triggerEvent('test', 'hello', 'world');
 
 observer.removeListener('test', listener);
 
-setTimeout(()=>{
+setTimeout(() => {
   observer.triggerEvent('test', 'hello', 'world', 'again');
-},1000);
+}, 1000);
 
 observer.on('hello', listener2);
 observer.emit('hello', 'Hello world!');
