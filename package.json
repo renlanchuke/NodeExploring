@@ -10,7 +10,9 @@
     "mongoose": "^5.7.5",
     "mongoose-currency": "^0.2.0",
     "node-threadobject": "^1.0.2",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "redis": "^3.0.2",
+    "redis-lru": "^0.6.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.6.0",
