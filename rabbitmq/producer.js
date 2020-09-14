@@ -5,47 +5,22 @@ const amqp = require('amqplib');
 
 class Producer {
   constructor() {
-    this.hosts = [];
-    this.index = 0;
-    this.length = this.hosts.length;
-    this.open = amqp.connect(this.hosts[this.index]);
+    this.conn;
+    this.channel;
   }
-  sendQueueMsg(queueName, msg, errCallBack) {
-    const self = this;
+  async sendQueueMsg(queueName, msg, errCallBack) {
+    this.conn = await amqp.connect();
+    this.channel = await this.conn.createChannel();
+    await this.channel.assertQueue(queueName);
+    await this.channel.sendToQueue(queueName, new Buffer(msg), {
+      persistent: true
+    });
+  }
 
-    self.open
-            .then(function(conn) {
-              return conn.createChannel();
-            })
-            .then(function(channel) {
-              return channel.assertQueue(queueName).then(function(ok) {
-                return channel.sendToQueue(queueName, new Buffer(msg), {
-                  persistent: true
-                });
-              })
-                    .then(function(data) {
-                      if (data) {
-                        errCallBack && errCallBack('success');
-                        channel.close();
-                      }
-                    })
-                    .catch(function() {
-                      setTimeout(() => {
-                        if (channel) {
-                          channel.close();
-                        }
-                      }, 500);
-                    });
-            })
-            .catch(function() {
-              const num = self.index++;
-
-              if (num <= self.length - 1) {
-                self.open = amqp.connect(self.hosts[num]);
-              } else {
-                self.index === 0;
-              }
-            });
+  close() {
+    if (this.channel) {
+      this.channel.close();
+    }
   }
 }
 
