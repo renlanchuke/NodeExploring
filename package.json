@@ -4,6 +4,7 @@
   "description": "Node.js learning and exploring.",
   "main": "",
   "dependencies": {
+    "amqplib": "^0.6.0",
     "assert": "^1.3.0",
     "bluebird": "^3.5.4",
     "calculator-package-demo": "git+https://github.com/PureGray/caculator.git",
@@ -16,7 +17,11 @@
     "optimist": "^0.6.1",
     "prompt": "^1.0.0",
     "redis": "^3.0.2",
-    "redis-lru": "^0.6.0"
+    "redis-lru": "^0.6.0",
+    "rocketmq": "^2.0.1",
+    "socket.io-client": "^2.3.0",
+    "urlencode": "^1.1.0",
+    "zookeeper-cluster-client": "^3.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.6.0",

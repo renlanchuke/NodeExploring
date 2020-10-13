@@ -1,6 +1,3 @@
-/**
- * 对RabbitMQ的封装
- */
 const amqp = require('amqplib');
 
 class Consumer {
