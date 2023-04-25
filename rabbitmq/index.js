@@ -1,3 +1,5 @@
+'use strict';
+
 const Producer = require('./producer.js');
 const Consumer = require('./consumer.js');
 const producer = new Producer();
