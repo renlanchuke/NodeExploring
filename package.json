@@ -9,11 +9,13 @@
     "bluebird": "^3.5.4",
     "calculator-package-demo": "git+https://github.com/PureGray/caculator.git",
     "kafka-node": "^5.0.0",
-    "mongodb": "^2.1.11",
-    "mongoose": "^5.7.5",
+    "mongodb": "^3.6.11",
+    "mongodb-client-encryption": "^1.2.6",
+    "mongoose": "^5.9.15",
     "mongoose-currency": "^0.2.0",
     "node-rdkafka": "^2.9.1",
     "node-threadobject": "^1.0.2",
+    "node-uuid": "^1.4.8",
     "optimist": "^0.6.1",
     "prompt": "^1.0.0",
     "redis": "^3.0.2",
@@ -21,6 +23,7 @@
     "rocketmq": "^2.0.1",
     "socket.io-client": "^2.3.0",
     "urlencode": "^1.1.0",
+    "uuid-base64": "^1.0.0",
     "zookeeper-cluster-client": "^3.1.0"
   },
   "devDependencies": {
