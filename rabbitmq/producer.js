@@ -6,10 +6,10 @@ class Producer {
     this.channel;
   }
   async sendQueueMsg(queueName, msg, errCallBack) {
-    this.conn = await amqp.connect();
+    this.conn = await amqp.connect('amqp://localhost');
     this.channel = await this.conn.createChannel();
-    await this.channel.assertQueue(queueName);
-    await this.channel.sendToQueue(queueName, new Buffer(msg), {
+    await this.channel.assertQueue(queueName, { durable: true });
+    await this.channel.sendToQueue(queueName, Buffer.from(msg), {
       persistent: true
     });
   }

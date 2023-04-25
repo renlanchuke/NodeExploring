@@ -10,7 +10,7 @@ class Consumer {
       this.conn = await amqp.connect();
     }
     this.channel = await this.conn.createChannel();
-    await this.channel.assertQueue(queueName);
+    await this.channel.assertQueue(queueName, { durable: true });
     this.channel.consume(queueName, (msg) => {
       if (msg !== null) {
         const data = msg.content.toString();
