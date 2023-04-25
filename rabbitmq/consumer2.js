@@ -1,8 +1,9 @@
+'use strict';
 var ampq = require('amqplib');
 
 var connection = ampq.createConnection({ url: 'amqp:127.0.0.1:5672' });
 
-var bStop = false;
+let sunChannel = null;
 
 connection.on('ready', function() {
   connection.queue('topic', { durable: true, autoDelete: false }, function(queue) {
@@ -14,3 +15,5 @@ connection.on('ready', function() {
 
   });
 });
+
+console.log(' [*] Waiting for messages. To exit press CTRL+C');
